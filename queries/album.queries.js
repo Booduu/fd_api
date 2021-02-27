@@ -1,0 +1,39 @@
+const Albums = require('../database/models/album.model');
+const mongoose = require('mongoose');
+
+exports.albumCreate = async (body, filename) => {
+    try {
+        const album = new Albums({
+            title: body.title,
+            label: body.label,
+            tracklist: body.tracklist,
+            releaseDate: body.releaseDate,
+            cover: filename,
+        });
+        return album.save();
+    } catch(e) {
+        console.log('error', e)
+    }
+}
+
+exports.albumList = async () => {
+    return Albums.find().exec();
+}
+
+exports.albumItem = async (albumid) => {
+    return Albums.findById(albumid).exec();
+}
+
+exports.albumDelete = async (albumId) => {
+    return Albums.deleteOne({_id: albumId});
+}
+
+exports.albumEdit = (body) => {
+    const myId = mongoose.Types.ObjectId(body._id)
+    console.log('queries', body)
+    return Albums.updateOne({_id: myId}, {
+        $set: {
+            ...body,
+        }
+    });
+}
