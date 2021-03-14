@@ -8,6 +8,9 @@ exports.albumCreate = async (body, filename) => {
             label: body.label,
             tracklist: body.tracklist,
             releaseDate: body.releaseDate,
+            soundcloudLink: body.soundcloudLink,
+            buyLink: body.buyLink,
+            downloadLink: body.downloadLink,
             cover: filename,
         });
         return album.save();

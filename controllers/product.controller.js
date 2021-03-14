@@ -5,8 +5,8 @@ const { productCreate, productList, productItem, productEdit, productDelete, } =
 
 
 exports.createProduct = async (req, res, next) => {
-    console.log('body', req.body);
-    console.log('file', req.file);
+    console.log('req.file.filename', req.file.filename)
+
     try {
         const body = {
             ...req.body,
@@ -14,8 +14,9 @@ exports.createProduct = async (req, res, next) => {
         };
         const newProduct = await productCreate(body);
         res.json(newProduct);
-    } catch (e) {
-        console.log('err', e);
+    } catch(e) {
+        console.log('ERRR', e)
+        // next()
     }
 }
 
@@ -26,6 +27,7 @@ exports.listProduct = async (req, res, next) => {
         res.json(listOfProducts);
     } catch (e) {
         console.log('err', e)
+        next(e)
     }
 }
 
@@ -36,6 +38,7 @@ exports.itemProduct = async (req, res, next) => {
         res.json(product)
     } catch (e) {
         console.log('err', e);
+        next(e)
     }
 }
 
@@ -59,6 +62,7 @@ exports.editProduct = async (req, res, next) => {
         
     } catch (e) {
         console.log('err', e);
+        next(e)
     }
 }
 

@@ -6,6 +6,9 @@ const albumsSchema = schema({
     label: {type: String},
     tracklist: {type: Array},
     releaseDate: {type: Date},
+    soundcloudLink: {type: String},
+    buyLink: {type: String},
+    downloadLink: {type: String},
     cover: {type: String},
 });
 

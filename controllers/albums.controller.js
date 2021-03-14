@@ -4,6 +4,8 @@ const fs = require('fs');
 
 exports.createAlbum = async (req, res, next) => {
     const tracklist = req.body.tracklist.split(',');
+    console.log('body', req.body);
+    console.log('file', req.file);
     try {
         const body = {
             ...req.body,
@@ -38,7 +40,8 @@ exports.itemAlbum = async (req, res, next) => {
 }
 
 exports.editAlbum = async (req, res, next) => {
-    
+    console.log('body', req.body);
+    console.log('file', req.file);
     const tracklist = req.body.tracklist.split(',');
     let body = {
         ...req.body,
