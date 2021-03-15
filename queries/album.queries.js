@@ -16,6 +16,7 @@ exports.albumCreate = async (body, filename) => {
         return album.save();
     } catch(e) {
         console.log('error', e)
+        next(e);
     }
 }
 

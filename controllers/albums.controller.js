@@ -17,6 +17,7 @@ exports.createAlbum = async (req, res, next) => {
         res.json(newAlbum);
     } catch(e) {
         console.log('error', e);
+        next(e)
     }
 }
 

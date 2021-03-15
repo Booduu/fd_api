@@ -25,7 +25,7 @@ const routing = require('./routes');
 
 app.use(routing);
 
-// app.use(errorController);
+// app.use(() => errorController);
 
 
 //gestion d'erreurs
@@ -41,6 +41,11 @@ app.use(routing);
 //         });
 //     } else { 
 //         console.log('production', 2)
+//         console.log('YYYYY',{
+//           code: err.code || 500,
+//           message: err.message,
+//           stack: err.stack
+//       })
 
 //         res.status(500).json({
 //             code: err.code || 500,
@@ -50,11 +55,42 @@ app.use(routing);
 //     } 
 // })
 
-app.use( (err, req, res, next) => {
-    console.error('MIDDLEWARE ERROR', err.stack);
-    return res.status(500).send({ error: err });
 
-  })
+const handleValidationError = (err, res) => {
+    console.log('handleValidationError 22222', err)
+
+    let errors = Object.values(err.errors).map(el => el.message);
+    let fields = Object.values(err.errors).map(el => el.path);
+    let code = 400;
+    if(errors.length > 1) {
+       const formattedErrors = errors.join(' ');
+       res.status(code).send({messages: formattedErrors, fields: fields});
+     } else {
+        res.status(code).send({messages: errors, fields: fields})
+     }
+ }
+
+ //handle email or usename duplicates
+const handleDuplicateKeyError = (err, res) => {
+   const field = Object.keys(err.keyValue);
+   const code = 409;
+   const error = `An account with that ${field} already exists.`;
+   res.status(code).send({messages: error, fields: field});
+}
+
+app.use((err, req, res, next) => {
+    try {
+        console.log('congrats you hit the error middleware');
+        if(err.name === 'ValidationError') return err = handleValidationError(err, res);
+        if(err.code && err.code == 11000) return err = handleDuplicateKeyError(err, res);
+
+        console.log('errr 1', err)
+    } catch(err) {
+        console.log('errr 2', err)
+
+       res.status(500).send('An unknown error occurred.');
+    }
+});
 
 
 
@@ -62,10 +98,5 @@ app.listen(3030, () => {
     console.log('listening on 3030');
 });
 
-
-// app.use((err, req, res, next) => {
-//     console.log('congrats you hit the error middleware');
-//     console.log(err);
-// });
 
 

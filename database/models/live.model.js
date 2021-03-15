@@ -3,11 +3,17 @@ const schema = mongoose.Schema;
 
 const livesSchema = schema({
     date: {type: Date},
-    city: {type: String},
-    place: {type: String},
+    city: {
+        type: String,
+        required: [true, 'Le champs city est requis.'],
+    },
+    place: {
+        type: String,
+        required: [true, 'Le champs place est requis.'],
+    },
     name: {
         type: String,
-        required: [true, 'champs name requis'],
+        required: [true, 'Le champs name est requis.'],
     }, 
     ticketLink: {type: String}, 
 

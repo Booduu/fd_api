@@ -16,7 +16,7 @@ exports.createProduct = async (req, res, next) => {
         res.json(newProduct);
     } catch(e) {
         console.log('ERRR', e)
-        // next()
+        next(e)
     }
 }
 

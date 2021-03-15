@@ -15,6 +15,7 @@ exports.liveCreate = async (body) => {
         return live.save();
     } catch(e) {
         console.log('e', e);
+        next(e);
     }
 }
 

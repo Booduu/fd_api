@@ -9,8 +9,6 @@ exports.createLive = async (req, res, next) => {
         const live = await liveCreate(body);
         res.json(live);
     } catch(e) {
-        console.log('error', e)
-        // res.status(500).send('kdjbfdbfkdsjbfkdsbfks')
         next(e);
     }
 }
