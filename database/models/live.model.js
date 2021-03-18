@@ -15,7 +15,10 @@ const livesSchema = schema({
         type: String,
         required: [true, 'Le champs name est requis.'],
     }, 
-    ticketLink: {type: String}, 
+    ticketLink: {
+        type: String,
+        required: [true, 'Le champs ticketLink est requis.'],
+    }, 
 
 });
 

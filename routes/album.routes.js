@@ -11,14 +11,18 @@ const upload = multer({
         },
         filename: (req, file, cb) => {
             cb(null, Date.now() + '-' + file.originalname)
-        }
+        },        
     }),
 });
+
+
 
 const { createAlbum, listAlbum, itemAlbum, editAlbum, deleteAlbum } = require('../controllers/albums.controller');
 
 
-router.post('/albumcreate', upload.single('cover'), createAlbum);;
+router.post('/albumcreate', upload.single('cover'), createAlbum);
+
+
 router.get('/albumlist', listAlbum);
 router.get('/:albumitem', itemAlbum);
 // router.patch('/:albumitem', editAlbum);

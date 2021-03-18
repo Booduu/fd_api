@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 exports.createAlbum = async (req, res, next) => {
+    
     const tracklist = req.body.tracklist.split(',');
     console.log('body', req.body);
     console.log('file', req.file);
@@ -16,7 +17,6 @@ exports.createAlbum = async (req, res, next) => {
         const newAlbum = await albumCreate(body, filename);
         res.json(newAlbum);
     } catch(e) {
-        console.log('error', e);
         next(e)
     }
 }

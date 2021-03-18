@@ -5,28 +5,35 @@ const { productCreate, productList, productItem, productEdit, productDelete, } =
 
 
 exports.createProduct = async (req, res, next) => {
-    console.log('req.file.filename', req.file.filename)
-
     try {
-        const body = {
-            ...req.body,
-            filename: req.file.filename,
-        };
-        const newProduct = await productCreate(body);
-        res.json(newProduct);
+         if (req.file) {
+            const body = {
+                ...req.body,
+                filename: req.file.filename,
+            };
+            const newProduct = await productCreate(body);
+            res.json(newProduct);
+         } else { 
+            res.status(400).json({
+                errors: {
+                    cover: {
+                        name: 'ValidatorError',
+                        message: 'Une image est requise !'
+                    }
+                }
+            });
+         } 
     } catch(e) {
-        console.log('ERRR', e)
-        next(e)
+        res.status(400).json(e);
+
     }
 }
 
 exports.listProduct = async (req, res, next) => {
-    console.log('productlist')
     try {
         const listOfProducts = await productList();
         res.json(listOfProducts);
     } catch (e) {
-        console.log('err', e)
         next(e)
     }
 }
@@ -37,14 +44,11 @@ exports.itemProduct = async (req, res, next) => {
         const product = await productItem(idOfProduct);
         res.json(product)
     } catch (e) {
-        console.log('err', e);
         next(e)
     }
 }
 
 exports.editProduct = async (req, res, next) => {
-    console.log('bodyddddd', req.body);
-    console.log('fileddddd', req.file);
     let body = {
         ...req.body,
     }
@@ -61,23 +65,29 @@ exports.editProduct = async (req, res, next) => {
         res.json(body);
         
     } catch (e) {
-        console.log('err', e);
         next(e)
     }
 }
 
 exports.deleteProduct = async (req, res, next) => {
-    console.log('lldfdkf', req.params.productitem)
-    console.log('lldfdkf', req.body.cover)
-
     try {
         const productId = mongoose.Types.ObjectId(req.params.productitem);
         const productDeleted = await productDelete(productId);
-        fs.unlinkSync(`./assets/uploads/products/${req.body.cover}`, err => {
-            console.log('err', err);
-        });
-        res.json(productDeleted);
+       
+        if (productDeleted.deletedCount > 0) {
+            fs.unlinkSync(`./assets/uploads/products/${req.body.cover}`, err => {
+                console.log('unlinkSync error', err);
+            });
+            res.json(productDeleted);
+        } else {
+            res.status(400).json({
+                errors: {
+                    weird: true,
+                    message: 'Oups, une erreur est survenue...'
+                }
+            });   
+        }
     } catch (e) {
-        console.log('err', e)
+        res.status(400).json(e);
     }
 }

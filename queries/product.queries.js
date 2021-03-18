@@ -2,13 +2,20 @@ const Product = require('../database/models/product.model');
 const mongoose = require('mongoose');
 
 exports.productCreate = async (body, filename) => {
-    const product = new Product({
-        type: body.type,
-        name: body.name,
-        link: body.link,
-        cover: body.filename,
-    });
-    return product.save();
+    try {
+        const product = new Product({
+            type: body.type,
+            name: body.name,
+            link: body.link,
+            cover: body.filename,
+        });
+        return product.save();
+    } catch(e) {
+        console.log('IIIIII', e)
+        // next(e);
+        res.status(400).json(e);
+    }
+  
 }
 
 exports.productList = async () => {
