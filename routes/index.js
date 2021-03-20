@@ -12,6 +12,7 @@ const userRoutes = require('./user.routes');
 const videoRoutes = require('./video.routes');
 
 router.use('/live', liveRoutes);
+
 router.use('/album', albumRoutes);
 router.use('/file', filesRoutes);
 router.use('/product', productRoutes);

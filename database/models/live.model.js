@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const livesSchema = schema({
-    date: {type: Date},
+    date: {
+        type: Date,
+        required: [true, 'Le champs date est requis.'],
+    },
     city: {
         type: String,
         required: [true, 'Le champs city est requis.'],
@@ -21,6 +24,7 @@ const livesSchema = schema({
     }, 
 
 });
+
 
 const Lives = mongoose.model('lives', livesSchema);
 

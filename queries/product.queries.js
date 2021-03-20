@@ -7,8 +7,9 @@ exports.productCreate = async (body, filename) => {
             type: body.type,
             name: body.name,
             link: body.link,
-            cover: body.filename,
+            cover: body.cover,
         });
+        console.log('PPPPP', product)
         return product.save();
     } catch(e) {
         console.log('IIIIII', e)
@@ -23,16 +24,22 @@ exports.productList = async () => {
 } 
 
 exports.productItem = async (id) => {
-    return Product.findById({_id: id}).exec();
+    console.log('Product,', id)
+    return Product.findById(id).exec();
 }
 
-exports.productEdit = async (body) => {
-    const myId = mongoose.Types.ObjectId(body._id);
-    return Product.updateOne({_id: myId}, {
-        $set: {
-            ...body,
-        }
-    });
+// exports.productEdit = async (body) => {
+//     const myId = mongoose.Types.ObjectId(body._id);
+//     return Product.updateOne({_id: myId}, {
+//         $set: {
+//             ...body,
+//         }
+//     });
+// }
+
+exports.productEdit = (body) => {
+   return Product.findById(body._id).exec();
+
 }
 
 exports.productDelete = async (id) => {

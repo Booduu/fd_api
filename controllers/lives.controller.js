@@ -37,20 +37,19 @@ exports.deleteLive = async (req, res, next) => {
 
 exports.editLive = async (req, res, next) => {
     try {
-        const liveUpdated = await liveEdit(req.body);
-        if (liveUpdated.n === 0) {
-            res.status(400).json({
-                errors: {
-                    weird: true,
-                    message: 'Oups, une erreur est survenue...'
-                }
-            });  
-        } else {
-            res.json(liveUpdated);
-        }
+        const liveToModified = await itemLive(req.body._id);
+        liveToModified.date = req.body.date;
+        liveToModified.city = req.body.city;
+        liveToModified.place = req.body.place;
+        liveToModified.name = req.body.name;
+        liveToModified.ticketLink = req.body.ticketLink;
+
+        const liveUpdated = await liveToModified.save();
+
+        res.json(liveUpdated);
+     
     } catch(e) {
         res.status(400).json(e);
-
     }
 }
 
