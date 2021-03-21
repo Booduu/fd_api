@@ -9,7 +9,15 @@ const upload = multer({
             cb(null, path.join('./assets/uploads/products'))
         },
         filename: (req, file, cb) => {
-            cb(null, Date.now() + '-' + file.originalname)
+            if ( req.body.name !== ''
+                && req.body.type !== ''
+                && req.body.link !== ''
+                ) {
+                cb(null, Date.now() + '-' + file.originalname)
+            } else {
+                // cb(new Error('I don\'t have a clue!'))
+                cb({ name: 'name', message: 'OUOUOUOUOUOUOU'})
+            }
         },
     }),
 });

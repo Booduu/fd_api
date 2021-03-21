@@ -4,16 +4,35 @@ const schema = mongoose.Schema;
 const albumsSchema = schema({
     title: {
         type: String,
+        required: [true, 'Le champs "title" est requis.'],
     },
-    label: {type: String},
-    tracklist: {type: Array},
-    releaseDate: {type: Date},
-    soundcloudLink: {type: String},
-    buyLink: {type: String},
-    downloadLink: {type: String},
+    label: {
+        type: String,
+        required: [true, 'Le champs "label" est requis.'],
+    },
+    tracklist: {
+        type: Array,
+        // required: [true, 'Le champs "type" est requis'],
+    },
+    releaseDate: {
+        type: Date,
+        required: [true, 'Le champs "releaseDate" est requis.'],
+    },
+    soundcloudLink: {
+        type: String,
+        required: [true, 'Le champs "soundcloudLink" est requis.'],
+    },
+    buyLink: {
+        type: String,
+        required: [true, 'Le champs "buyLink" est requis.'],
+    },
+    downloadLink: {
+        type: String,
+        required: [true, 'Le champs "downloadLink" est requis.'],
+    },
     cover: {
         type: String,
-        // required: [true, 'Cover requis.']
+        required: [true, 'Une image est requise.']
     },
 });
 

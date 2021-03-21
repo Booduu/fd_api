@@ -7,5 +7,5 @@ mongoose.connect('mongodb://localhost:27017/fulldub', {
 }).then(() => {
         console.log('CONNEXION TO DATABASE : OK !!');       
 }).catch(err => {
-    console.log('error : ', err)
+    console.log('CONNEXION TO DATABASE FAIL : ', err)
 });

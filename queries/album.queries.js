@@ -1,7 +1,7 @@
 const Albums = require('../database/models/album.model');
 const mongoose = require('mongoose');
 
-exports.albumCreate = async (body, filename) => {
+exports.albumCreate = async (body) => {
     try {
         const album = new Albums({
             title: body.title,
@@ -11,7 +11,7 @@ exports.albumCreate = async (body, filename) => {
             soundcloudLink: body.soundcloudLink,
             buyLink: body.buyLink,
             downloadLink: body.downloadLink,
-            cover: filename,
+            cover: body.cover,
         });
         return album.save();
     } catch(e) {
@@ -34,7 +34,6 @@ exports.albumDelete = async (albumId) => {
 
 exports.albumEdit = (body) => {
     const myId = mongoose.Types.ObjectId(body._id)
-    console.log('queries', body)
     return Albums.updateOne({_id: myId}, {
         $set: {
             ...body,

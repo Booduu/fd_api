@@ -19,7 +19,6 @@ exports.createUser = async (body) => {
 }
 
 exports.findUserPerEmail = async (email) => {
-    console.log('elnfzen', email)
     return Users.findOne({ 'local.email': email }).exec();
 }
 

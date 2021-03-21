@@ -6,24 +6,8 @@ const { productCreate, productList, productItem, productEdit, productDelete, } =
 
 exports.createProduct = async (req, res, next) => {
     try {
-         if (req.file) {
-            const body = {
-                ...req.body,
-                cover: req.file.filename,
-            };
-            const newProduct = await productCreate(body);
-            res.json(newProduct);
-         } else { 
-            res.status(400).json({
-                errors: {
-                    cover: {
-                        name: 'ValidatorError',
-                        message: 'Une image est requise !'
-                    }
-                }
-            });
-            // throw new Error()
-         } 
+        const newProduct = await productCreate(req.body);
+        res.json(newProduct);
     } catch(e) {
         res.status(400).json(e);
 
@@ -53,27 +37,13 @@ exports.editProduct = async (req, res, next) => {
     let body = {
         ...req.body,
     }
-
     try {
-        let coverName;
         const productToModify = await productEdit(body);
-        console.log('productToMOOOOodify', productToModify)
-        if (req.file) {
-            console.log('req.filereq.filereq.file', req.file)
-            // coverName = req.file.filename;
-            fs.unlinkSync(`./assets/uploads/products/${productToModify.cover}`, err => {
-                console.log('err', e);
-            });
-            productToModify.cover = req.file.filename;
-        } else {
-            coverName = body.cover;  
-            productToModify.cover = coverName;
-        }
-       
         productToModify.type = body.type;
         productToModify.name = body.name;
         productToModify.link = body.link;
-       
+        productToModify.cover = body.cover;
+
         const productUpdated = await productToModify.save();
         res.json(productUpdated);
     } catch (e) {
@@ -81,50 +51,11 @@ exports.editProduct = async (req, res, next) => {
     }
 }
 
-// exports.editProduct = async (req, res, next) => {
-//     let body = {
-//         ...req.body,
-//     }
-//     try {
-//         if (req.file) {
-//             const findProduct = await productItem(body._id);
-//             fs.unlinkSync(`./assets/uploads/products/${findProduct.cover}`, err => {
-//                 console.log('err', e);
-//             });
-//             body.cover = req.file.filename;
-            
-//         }
-//         const productUpdated = await productEdit(body)
-//         res.json(body);
-        
-//     } catch (e) {
-//         next(e)
-//     }
-// }
-
-
-
-
 exports.deleteProduct = async (req, res, next) => {
-    console.log('RRRRR', req.body)
     try {
         const productId = mongoose.Types.ObjectId(req.params.productitem);
         const productDeleted = await productDelete(productId);
-    console.log('RRRRR', productDeleted)
-       
-        if (productDeleted.deletedCount > 0) {
-            fs.unlinkSync(`./assets/uploads/products/${req.body.cover}`, err => {
-                console.log('unlinkSync error', err);
-            });
-            res.json(productDeleted);
-        } else {
-            res.status(400).json({
-                errors: {
-                    weird: true,
-                    message: 'Oups, une erreur est survenue...'
-                }
-            });   
-        }
+        res.json(productDeleted);
     } catch (e) {
         res.status(400).json(e);
     }

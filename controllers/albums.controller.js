@@ -3,21 +3,18 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 exports.createAlbum = async (req, res, next) => {
-    
     const tracklist = req.body.tracklist.split(',');
-    console.log('body', req.body);
-    console.log('file', req.file);
     try {
         const body = {
             ...req.body,
             tracklist,
         };
-        console.log('iiii', body)
-        const filename = req.file.filename;
-        const newAlbum = await albumCreate(body, filename);
+
+        const newAlbum = await albumCreate(body);
         res.json(newAlbum);
+            
     } catch(e) {
-        next(e)
+        res.status(400).json(e);
     }
 }
 
@@ -41,26 +38,26 @@ exports.itemAlbum = async (req, res, next) => {
 }
 
 exports.editAlbum = async (req, res, next) => {
-    console.log('body', req.body);
-    console.log('file', req.file);
     const tracklist = req.body.tracklist.split(',');
     let body = {
         ...req.body,
         tracklist,
     };
     try {
-        if(req.file) {
-            const findAlbum = await albumItem(req.body._id);
-            fs.unlinkSync(`./assets/uploads/albums/${findAlbum.cover}`, (err) => {
-                console.log(err)
-            });
-            body.cover = req.file.filename;
-        }
-        console.log('ggg', body)
-        const albumModified = await albumEdit(body);
-        res.json(body);
+        const albumToModify = await albumItem(req.body._id);
+        albumToModify.title = body.title;
+        albumToModify.label = body.label;
+        albumToModify.tracklist = body.tracklist;
+        albumToModify.releaseDate = body.releaseDate;
+        albumToModify.soundcloudLink = body.soundcloudLink;
+        albumToModify.buyLink = body.buyLink;
+        albumToModify.downloadLink = body.downloadLink;
+        albumToModify.cover = body.cover;
+
+        const albumModified = await albumToModify.save();
+        res.json(albumModified);
     } catch(e) {
-        console.log('error', e);
+        res.status(400).json(e);
     }
 }
 
@@ -68,11 +65,8 @@ exports.deleteAlbum = async (req, res, next) => {
     try {
         const albumId = mongoose.Types.ObjectId(req.params.albumitem);
         const albumDeleted = await albumDelete(albumId);
-        fs.unlinkSync(`./assets/uploads/albums/${req.body.cover}`, err => {
-            console.log(err)
-        });
         res.json(albumDeleted);
     } catch(e) {
-        console.log('error', e);
+        res.status(400).json(e);
     }
 }

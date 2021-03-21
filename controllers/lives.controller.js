@@ -1,5 +1,5 @@
 const { liveCreate, liveDelete, liveEdit, listLive, itemLive, editLive } = require('../queries/lives.queries');
-const ObjectID = require('mongodb').ObjectID;
+// const ObjectID = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
 
 exports.createLive = async (req, res, next) => {
@@ -10,7 +10,6 @@ exports.createLive = async (req, res, next) => {
         res.json(live);
     } catch(e) {
         res.status(400).json(e);
-
     }
 }
 
@@ -31,7 +30,6 @@ exports.deleteLive = async (req, res, next) => {
         }
     } catch(e) {
         res.status(400).json(e);
-
     }
 }
 
@@ -45,7 +43,6 @@ exports.editLive = async (req, res, next) => {
         liveToModified.ticketLink = req.body.ticketLink;
 
         const liveUpdated = await liveToModified.save();
-
         res.json(liveUpdated);
      
     } catch(e) {
@@ -59,7 +56,6 @@ exports.liveList = async (req, res, next) => {
         res.json(listLives);
     } catch(e) {
         res.status(400).json(e);
-
     }
 }
 
@@ -72,15 +68,3 @@ exports.liveItem = async (req, res, next) => {
         res.status(400).json(e);
     }
 }
-
-// exports.liveEdit = async (req, res, next) => {
-//     try {
-//         const body = req.body;
-//         const id = req.params.liveid;
-//         const liveModified = await editLive(id, body);
-//         res.json(liveModified);
-//     } catch(e) {
-//         res.status(400).json(e);
-
-//     }
-// }

@@ -14,18 +14,12 @@ app.use(cors());
 app.options('*', cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json());
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-// app.use('./assets', express.static(path.join(__dirname, 'assets')));
-// app.use(express.static(path.join(__dirname, 'assets')));
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.static('assets'));
-// const errorController = require('./controllers/errorController');
 
 const routing = require('./routes');
 
 app.use(routing);
-
-// app.use(() => errorController);
 
 
 //gestion d'erreurs
@@ -58,7 +52,6 @@ app.use(routing);
 
 const handleValidationError = (err, res) => {
     console.log('handleValidationError 22222', err)
-
     let errors = Object.values(err.errors).map(el => el.message);
     let fields = Object.values(err.errors).map(el => el.path);
     let code = 400;
@@ -72,7 +65,6 @@ const handleValidationError = (err, res) => {
 
  //handle email or usename duplicates
 const handleDuplicateKeyError = (err, res) => {
-    console.log('LLLLL', res.body)
    const field = Object.keys(err.keyValue);
    const code = 409;
    const error = `An account with that ${field} already exists.`;
