@@ -12,7 +12,6 @@ const albumsSchema = schema({
     },
     tracklist: {
         type: Array,
-        // required: [true, 'Le champs "type" est requis'],
     },
     releaseDate: {
         type: Date,

@@ -4,9 +4,7 @@ const secret = 'a342c8b1-77b8-4455-9a59-c45a5639e813';
 
 
 exports.extractUserFromToken = async (req, res, next) => {
-    // const token = req.cookies.jwt;
     const token = req.header('auth-token');
-    console.log(req.header('auth-token'), 'kkk')
     if(token) {
         try {
             const decodedToken = jwt.verify(token, secret);
@@ -15,7 +13,7 @@ exports.extractUserFromToken = async (req, res, next) => {
                 req.user = user;
                 next();
             } else {
-                console.log('gggfkqjdl');
+                res.status(400).send('No user found');
             }
         } catch(e) {
             res.status(400).send('Invalid Token');
