@@ -15,8 +15,6 @@ exports.userCreate = async (req, res, next) => {
 
 exports.userLogin = async (req, res, next) => {
     try {
-        console.log('BBBBBBB', req.body)
-
         const { email, password } = req.body;
         const user = await findUserPerEmail(email);
 

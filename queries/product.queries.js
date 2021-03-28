@@ -9,7 +9,6 @@ exports.productCreate = async (body, filename) => {
             link: body.link,
             cover: body.cover,
         });
-        console.log('PPPPP', product)
         return product.save();
     } catch(e) {
         res.status(400).json(e);
@@ -22,7 +21,6 @@ exports.productList = async () => {
 } 
 
 exports.productItem = async (id) => {
-    console.log('Product,', id)
     return Product.findById(id).exec();
 }
 

@@ -9,9 +9,8 @@ const { createProduct, editProduct, deleteProduct } = require('../controllers/pr
 const { createAlbum, editAlbum, deleteAlbum } = require('../controllers/albums.controller');
 
 router.get('/', extractUserFromToken, (req, res) => {
-    console.log('ddddd', req.user)
     res.json(req.user)
-})
+});
 
 // LIVES ROUTES PROTECTED
 router.post('/live/livecreate', extractUserFromToken, createLive)
