@@ -13,7 +13,7 @@ exports.liveCreate = async (body) => {
         });
         return live.save();
     } catch(e) {
-        res.status(400).json(e);
+        next(e);
     }
 }
 

@@ -8,15 +8,15 @@ const productSchema = schema({
     },
     name: {
         type: String,
-        required: [true, 'Le champs "name" est requis'],
+        required: [true, '"Champs requis" ca veut dire "Champs requis"'],
     },
     link: {
         type: String,
-        required: [true, 'Le champs "link" est requis'],
+        required: [true, 'On a dit "requis le champs"'],
     },
     cover: {
         type: String,
-        required: [true, 'Le champs "cover" est requis'],
+        required: [true, 'Une image est requise.'],
     },
 });
 

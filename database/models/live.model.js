@@ -4,23 +4,23 @@ const schema = mongoose.Schema;
 const livesSchema = schema({
     date: {
         type: Date,
-        required: [true, 'Le champs date est requis.'],
+        required: [true, 'Tu veux enregistrer une date de concert sans date, t\'es un champion'],
     },
     city: {
         type: String,
-        required: [true, 'Le champs city est requis.'],
+        required: [true, 'T\'es un champion toi c\'est pas possible'],
     },
     place: {
         type: String,
-        required: [true, 'Le champs place est requis.'],
+        required: [true, 'Met s\'y un peu du tien, ca va l\'faire'],
     },
     name: {
         type: String,
-        required: [true, 'Le champs name est requis.'],
+        required: [true, 'Prend ton temps'],
     }, 
     ticketLink: {
         type: String,
-        required: [true, 'Le champs ticketLink est requis.'],
+        // required: [true, 'Le champs ticketLink est requis.'],
     }, 
 
 });

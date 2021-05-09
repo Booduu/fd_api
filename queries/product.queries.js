@@ -11,7 +11,7 @@ exports.productCreate = async (body, filename) => {
         });
         return product.save();
     } catch(e) {
-        res.status(400).json(e);
+        next(e);
     }
   
 }

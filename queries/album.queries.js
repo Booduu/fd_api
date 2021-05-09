@@ -1,12 +1,13 @@
 const Albums = require('../database/models/album.model');
 const mongoose = require('mongoose');
 
+
 exports.albumCreate = async (body) => {
     try {
         const album = new Albums({
             title: body.title,
             label: body.label,
-            tracklist: body.tracklist,
+            // tracklist: body.tracklist,
             releaseDate: body.releaseDate,
             soundcloudLink: body.soundcloudLink,
             buyLink: body.buyLink,
@@ -15,7 +16,6 @@ exports.albumCreate = async (body) => {
         });
         return album.save();
     } catch(e) {
-        console.log('error', e)
         next(e);
     }
 }

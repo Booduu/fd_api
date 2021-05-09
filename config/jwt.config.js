@@ -19,8 +19,6 @@ exports.createJwtToken = createJwtToken;
 //          et le positionner sur l'object request
 
 
-
-
 //3 - Ajout de métodes utiles (helpers) sur l'object req. 
 const addJwtFeatures = (req, res, next) => {
     req.isAuthenticated = () => !!req.user;
