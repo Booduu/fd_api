@@ -15,8 +15,8 @@ app.options('*', cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(express.static('assets'));
-
+// app.use(express.static('assets'));
+app.use(express.static(path.join(__dirname, '../client-build')))
 const routing = require('./routes');
 
 app.use(routing);
