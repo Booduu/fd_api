@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=80 node app.js",
-
+    "start": "NODE_ENV=development nodemon ./app.js",
+    "start:prod": "NODE_ENV=production nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
