@@ -89,8 +89,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client-build/index.html"));
 });
 
-app.listen(3030, () => {
-    console.log('listening on 3030');
+const port = process.env.PORT || 3030;
+app.listen(port, () => {
+    console.log('listening on ' + port);
 });
 
 
