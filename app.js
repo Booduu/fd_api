@@ -84,21 +84,19 @@ app.use((err, req, res, next) => {
 });
 
 
-app.use(express.static(path.join(__dirname, "..", "client-build")));
+// app.use(express.static(path.join(__dirname, "..", "client-build")));
 app.use(express.static("../client-build"));
 
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "..", "client-build", "index.html"));
-  });
 
 // app.use(express.static(path.join(__dirname, "../client-build")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../client-build/index.html"));
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client-build", "index.html"));
 // });
 
-app.listen(3030, () => {
-    console.log('listening on 3030');
+const PORT = process.env.PORT || 3030;
+app.listen(PORT, () => {
+    console.log('listening on' + PORT);
 });
 
 
