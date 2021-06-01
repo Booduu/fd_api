@@ -6,7 +6,7 @@ const bodyParser= require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 
-exports.app = app;
+// exports.app = app;
 app.use(cookieParser());
 require('./config/jwt.config');
 
@@ -91,11 +91,11 @@ app.get('*', (req, res) => {
 })
 
 
-const PORT = process.env.PORT || 3030;
-app.listen(PORT, () => {
-    console.log('listening on' + PORT);
-});
+// const PORT = process.env.PORT || 3030;
+// app.listen(PORT, () => {
+//     console.log('listening on' + PORT);
+// });
 
 
-// module.exports = app;
+module.exports = app;
 
