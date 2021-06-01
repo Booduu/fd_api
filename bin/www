@@ -1,0 +1,28 @@
+const http = require('http');
+const https = require('https');
+const app = require('../app');
+const fs = require('fs');
+const path = require('path');
+
+http.createServer((req, res) => {
+    console.log('http server');
+    console.log({
+        host: req.headers.host,
+        req: req.url,
+    });
+    res.writeHead('301', { Location: `https://${req.headers.host}${req.url}` })
+    res.end();
+}).listen(80);
+
+const server = https.createServer({
+    key: fs.readFileSync(path.join(__dirname, '../ssl/localhost.key')),
+    cert: fs.readFileSync(path.join(__dirname, '../ssl/localhost.crt')),
+}, app);
+
+
+// const PORT = process.env.PORT || 3030;
+server.listen(443, () => {
+    console.log('listening on');
+});
+
+
