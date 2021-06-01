@@ -91,11 +91,11 @@ app.get('*', (req, res) => {
 })
 
 
-// const PORT = process.env.PORT || 3030;
-// app.listen(PORT, () => {
-//     console.log('listening on' + PORT);
-// });
+const PORT = process.env.PORT || 3030;
+app.listen(PORT, () => {
+    console.log('listening on' + PORT);
+});
 
 
-module.exports = app;
+// module.exports = app;
 
