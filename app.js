@@ -6,7 +6,7 @@ const bodyParser= require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 
-// exports.app = app;
+exports.app = app;
 app.use(cookieParser());
 require('./config/jwt.config');
 
