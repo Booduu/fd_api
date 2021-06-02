@@ -6,7 +6,9 @@ const bodyParser= require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 
-exports.app = app;
+// exports.app = app;
+module.exports = app;
+
 app.use(cookieParser());
 require('./config/jwt.config');
 
@@ -97,5 +99,5 @@ app.get('*', (req, res) => {
 // });
 
 
-module.exports = app;
+// module.exports = app;
 

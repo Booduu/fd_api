@@ -3,26 +3,32 @@ const https = require('https');
 const app = require('../app');
 const fs = require('fs');
 const path = require('path');
+const env = require(`../environment/${process.env.NODE_ENV}`);
 
-http.createServer((req, res) => {
-    console.log('http server');
-    console.log({
-        host: req.headers.host,
-        req: req.url,
-    });
-    res.writeHead('301', { Location: `https://${req.headers.host}${req.url}` })
-    res.end();
+// http.createServer((req, res) => {
+//     console.log('http server');
+//     console.log({
+//         host: req.headers.host,
+//         req: req.url,
+//     });
+//     res.writeHead('301', { Location: `https://${req.headers.host}${req.url}` })
+//     res.end();
+// }).listen(80);
+
+const httpServer = http.createServer((req, res) => {
+    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` })
 }).listen(80);
 
-const server = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, '../ssl/localhost.key')),
-    cert: fs.readFileSync(path.join(__dirname, '../ssl/localhost.crt')),
-}, app);
+const httpsServer = https.createServer({
+    // key: fs.readFileSync(path.join(__dirname, '../ssl/local.key')),
+    // cert: fs.readFileSync(path.join(__dirname, '../ssl/local.crt')),
+    key: fs.readFileSync(env.key),
+    cert: fs.readFileSync(env.cert),
+}, app).listen(443, () => console.log('listening'));
 
 
-// const PORT = process.env.PORT || 3030;
-server.listen(443, () => {
-    console.log('listening on');
-});
+// https.listen(443, () => {
+//     console.log('listening on');
+// });
 
 

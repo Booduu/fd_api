@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const env = require(`../environment/${process.env.NODE_ENV}`)
 
-mongoose.connect('mongodb://localhost:27017/fulldub', {
+mongoose.connect(env.dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
