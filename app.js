@@ -6,9 +6,7 @@ const bodyParser= require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 
-// exports.app = app;
-module.exports = app;
-
+exports.app = app;
 app.use(cookieParser());
 require('./config/jwt.config');
 
@@ -86,18 +84,20 @@ app.use((err, req, res, next) => {
 });
 
 
-app.use(express.static(path.join(__dirname, "../client-build")));
+//production
+// app.use(express.static(path.join(__dirname, "../client-build")));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client-build/index.html"))
-})
-
-
-// const PORT = process.env.PORT || 3030;
-// app.listen(PORT, () => {
-//     console.log('listening on' + PORT);
-// });
-
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, "../client-build/index.html"))
+// })
 
 // module.exports = app;
+
+//dev
+const PORT = process.env.PORT || 3030;
+app.listen(3030, () => {
+    console.log('listening on ' + PORT);
+});
+
+
 
