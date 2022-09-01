@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": { 
+  "scripts": {
     "start": "nodemon ./app.js",
     "prod": "PORT=80 node app.js",
     "start:prod": "NODE_ENV=production node ./bin/www",

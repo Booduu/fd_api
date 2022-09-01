@@ -85,19 +85,19 @@ app.use((err, req, res, next) => {
 
 
 //production
-app.use(express.static(path.join(__dirname, "../client-build")));
+// app.use(express.static(path.join(__dirname, "../client-build")));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client-build/index.html"))
-})
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, "../client-build/index.html"))
+// })
 
 module.exports = app;
 
 //dev
-// const PORT = process.env.PORT || 3030;
-// app.listen(3030, () => {
-//     console.log('listening on ' + PORT);
-// });
+const PORT = process.env.PORT || 3030;
+app.listen(3030, () => {
+    console.log('listening on ' + PORT);
+});
 
 
 
