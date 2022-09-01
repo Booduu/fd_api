@@ -4,11 +4,22 @@ const app = require('../app');
 const fs = require('fs');
 const path = require('path');
 const env = require(`../environment/${process.env.NODE_ENV}`);
+const webSocketServer = require('websocket').server;
 
 const httpServer = http.createServer((req, res) => {
     res.writeHead(301, { Location: `https://${req.headers.host.split(':')[0] + ':' + env.portHttps }${req.url}` });
     res.end();
 }).listen(env.portHttp);
+
+
+// Start the http server and the websocket server
+httpServer.listen(webSocketServerPort);
+
+const wsServer = new webSocketServer({
+	httpServer: httpServer
+});
+
+
 
 const httpsServer = https.createServer({
     // key: fs.readFileSync(path.join(__dirname, '../ssl/local.key')),
@@ -17,6 +28,6 @@ const httpsServer = https.createServer({
     cert: fs.readFileSync(env.cert),
 }, app).listen(env.portHttps, () => console.log('listening' + env.portHttps));
 
-
+const webSocketServerPort = 8000;
 
 
