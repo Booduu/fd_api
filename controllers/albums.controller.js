@@ -4,7 +4,6 @@ const fs = require('fs');
 
 // CREATION ALBUM
 exports.createAlbum = async (req, res, next) => {
-    // const tracklist = req.body.tracklist.split(',');
     try {
         const body = {
             ...req.body,
@@ -44,10 +43,8 @@ exports.itemAlbum = async (req, res, next) => {
 
 // EDIT ALBUM
 exports.editAlbum = async (req, res, next) => {
-    // const tracklist = req.body.tracklist.split(',');
     let body = {
         ...req.body,
-        // tracklist,
     };
     try {
         const albumToModify = await albumItem(req.body._id);
@@ -58,6 +55,8 @@ exports.editAlbum = async (req, res, next) => {
         albumToModify.soundcloudLink = body.soundcloudLink;
         albumToModify.buyLink = body.buyLink;
         albumToModify.downloadLink = body.downloadLink;
+        albumToModify.linkForLastAlbum = body.linkForLastAlbum;
+
         albumToModify.cover = body.cover;
 
         const albumModified = await albumToModify.save();

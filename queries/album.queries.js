@@ -7,11 +7,11 @@ exports.albumCreate = async (body) => {
         const album = new Albums({
             title: body.title,
             label: body.label,
-            // tracklist: body.tracklist,
             releaseDate: body.releaseDate,
             soundcloudLink: body.soundcloudLink,
             buyLink: body.buyLink,
             downloadLink: body.downloadLink,
+            linkForLastAlbum: body.linkForLastAlbum,
             cover: body.cover,
         });
         return album.save();

@@ -26,6 +26,10 @@ const albumsSchema = schema({
         type: String,
         // required: [true, 'Le champs "downloadLink" est requis.'],
     },
+    linkForLastAlbum: {
+        type: String,
+        // required: [true, 'Le champs "downloadLink" est requis.'],
+    },
     cover: {
         type: String,
         required: [true, 'Une image est requise.']
