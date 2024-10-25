@@ -94,10 +94,10 @@ app.get('*', (req, res) => {
 module.exports = app;
 
 //dev
-// const PORT = process.env.PORT || 3030;
-// app.listen(3030, () => {
-//     console.log('listening on ' + PORT);
-// });
+const PORT = process.env.PORT || 3030;
+app.listen(3030, () => {
+    console.log('listening on ' + PORT);
+});
 
 
 
